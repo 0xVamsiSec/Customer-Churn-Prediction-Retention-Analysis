@@ -1,0 +1,84 @@
+=== DATA CLEANING REPORT ===
+Raw file           : data\raw\customer_churn.csv
+Raw SHA-256 before : 16320c9c1ec72448db59aa0a26a0b95401046bef5d02fd3aeb906448e3055e91
+Original shape     : 7043 rows x 21 columns
+
+--- TOTALCHARGES CONVERSION ---
+Non-convertible raw values found   : 11
+Asserted: every non-numeric raw value is exactly one whitespace char (' ')
+Asserted: every affected row has tenure == 0
+Asserted: every affected row has Churn == 'No'
+Raw values of affected cells (repr):
+  ["' '", "' '", "' '", "' '", "' '", "' '", "' '", "' '", "' '", "' '", "' '"]
+Affected customerIDs:
+  - 4472-LVYGI
+  - 3115-CZMZD
+  - 5709-LVOEQ
+  - 4367-NUYAO
+  - 1371-DWPAZ
+  - 7644-OMVMY
+  - 3213-VVOLG
+  - 2520-SGTTA
+  - 2923-ARZLG
+  - 4075-WKNIU
+  - 2775-SEFEE
+Action: 11 verified new-customer rows set to 0.0 (0 months billed).
+
+--- TEXT CLEANING (DEFENSIVE STRIP) ---
+Text values changed                : 0
+Category values changed            : none - no categorical value required correction
+No lowercase/normalization applied to categories (audit found none needed).
+
+--- TARGET ENCODING ---
+Mapping applied: No -> 0, Yes -> 1
+Counts before encoding             : {'No': 5174, 'Yes': 1869}
+Counts after encoding              : {0: 5174, 1: 1869}
+
+--- DUPLICATES ---
+Duplicate full rows                : 0 (nothing removed)
+Duplicate customerIDs              : 0 (nothing removed)
+
+--- OUTLIERS (IQR, REPORT ONLY - NOTHING REMOVED) ---
+tenure: 0 IQR outliers (bounds [-60.0, 124.0]) - retained
+MonthlyCharges: 0 IQR outliers (bounds [-46.025, 171.375]) - retained
+
+--- VALIDATION ---
+[final] All critical checks passed.
+tenure range OK: [0, 72] within [0, 200]
+MonthlyCharges range OK: [18.25, 118.75] within [0, 1000]
+TotalCharges range OK: [0.0, 8684.8] within [0, 100000]
+
+--- FINAL STATE ---
+Final shape                        : 7043 rows x 21 columns
+Rows removed                       : 0
+Columns removed                    : 0
+Final missing values (total)       : 0
+Final missing values (per column)  : none
+Final dtypes:
+  customerID           str
+  gender               str
+  SeniorCitizen        int64
+  Partner              str
+  Dependents           str
+  tenure               int64
+  PhoneService         str
+  MultipleLines        str
+  InternetService      str
+  OnlineSecurity       str
+  OnlineBackup         str
+  DeviceProtection     str
+  TechSupport          str
+  StreamingTV          str
+  StreamingMovies      str
+  Contract             str
+  PaperlessBilling     str
+  PaymentMethod        str
+  MonthlyCharges       float64
+  TotalCharges         float64
+  Churn                int64
+
+Saved cleaned dataset              : data\processed\cleaned_customer_churn.csv
+Raw SHA-256 after                  : 16320c9c1ec72448db59aa0a26a0b95401046bef5d02fd3aeb906448e3055e91
+Raw file byte-for-byte unchanged   : True
+
+PHASE 3 CLEANING: SUCCESS

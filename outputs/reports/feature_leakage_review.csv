@@ -1,0 +1,27 @@
+Feature,Leakage Risk,Included,Reason
+customerID,None (identifier),No,"Identifier; kept in the dataset for customer-level predictions and reporting but excluded from the model feature matrix (no predictive content, memorization risk)"
+gender,Low,Yes,Pre-churn billing/service attribute: Customer gender (Female / Male) - known before churn occurs
+SeniorCitizen,Low,Yes,"Pre-churn billing/service attribute: 1 if customer is a senior citizen (65+), else 0 - known before churn occurs"
+Partner,Low,Yes,Pre-churn billing/service attribute: Customer has a spouse or partner (Yes / No) - known before churn occurs
+Dependents,Low,Yes,Pre-churn billing/service attribute: Customer has dependents such as children (Yes / No) - known before churn occurs
+tenure,Low,Yes,Pre-churn billing attribute: Number of months the customer has been with the company
+TenureGroup,Low,Yes,Engineered from Engineered - known before churn occurs
+PhoneService,Low,Yes,Pre-churn billing/service attribute: Subscribes to home phone service (Yes / No) - known before churn occurs
+MultipleLines,Low,Yes,Pre-churn billing/service attribute: Multiple phone lines for phone customers (Yes / No / No phone service) - known before churn occurs
+InternetService,Low,Yes,Pre-churn billing/service attribute: Internet service type (DSL / Fiber optic / No) - known before churn occurs
+OnlineSecurity,Low,Yes,Pre-churn billing/service attribute: Online security add-on (Yes / No / No internet service) - known before churn occurs
+OnlineBackup,Low,Yes,Pre-churn billing/service attribute: Online backup add-on (Yes / No / No internet service) - known before churn occurs
+DeviceProtection,Low,Yes,Pre-churn billing/service attribute: Device protection add-on (Yes / No / No internet service) - known before churn occurs
+TechSupport,Low,Yes,Pre-churn billing/service attribute: Tech support add-on (Yes / No / No internet service) - known before churn occurs
+StreamingTV,Low,Yes,Pre-churn billing/service attribute: TV streaming add-on (Yes / No / No internet service) - known before churn occurs
+StreamingMovies,Low,Yes,Pre-churn billing/service attribute: Movie streaming add-on (Yes / No / No internet service) - known before churn occurs
+ServiceCount,Low,Yes,Engineered from Engineered - known before churn occurs
+HasSecuritySupport,Low,Yes,Engineered from Engineered - known before churn occurs
+Contract,Low,Yes,Pre-churn billing/service attribute: Contract term (Month-to-month / One year / Two year) - known before churn occurs
+PaperlessBilling,Low,Yes,Pre-churn billing/service attribute: Bill delivered electronically (Yes / No) - known before churn occurs
+PaymentMethod,Low,Yes,"Pre-churn billing/service attribute: How the customer pays (electronic check, mailed check, automatic bank transfer, automatic credit card) - known before churn occurs"
+MonthlyCharges,Low,Yes,Pre-churn billing attribute: Current monthly charge in USD
+MonthlyChargeBand,Low,Yes,Engineered from Engineered - known before churn occurs
+TotalCharges,Low,Yes,Pre-churn billing attribute: Total amount billed to date in USD (accumulates with tenure)
+AvgMonthlyCharge,Low,Yes,Engineered from Engineered - known before churn occurs
+Churn,Target variable,No (target),Prediction target; by definition known only after/at churn - must never be a predictor

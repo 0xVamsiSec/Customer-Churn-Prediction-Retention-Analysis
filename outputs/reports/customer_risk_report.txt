@@ -1,0 +1,126 @@
+=== CUSTOMER RISK SCORING REPORT (PHASE 7) ===
+Model            : models\churn_model.pkl (saved Phase-6 pipeline, NOT retrained)
+Classifier       : Pipeline(preprocess -> LogisticRegression, class_weight=balanced, C=1.0, solver=lbfgs, max_iter=1000)
+Scored source    : data\processed\model_ready_data.csv
+Cleaned SHA-256  : 38e6f2dd278033a4617f880e8f11304c5fc6dce2c05ecef3f2a8bf48eeaa8996
+
+--- SCORING OVERVIEW ---
+Customers scored          : 7043
+Probability range         : [0.011974, 0.964460]
+Mean predicted risk       : 0.4124
+Flagged at threshold 0.40 : 3465 (49.20%)
+High + Critical (segments): 2854 (40.52%)
+
+--- CONCEPT SEPARATION ---
+Model probability   : continuous churn_probability = predict_proba[:, 1]
+Classification flag : predicted_churn_at_0.40 = (probability >= 0.40)
+Business segment    : risk_segment = probability band (rules below)
+Low: probability < 0.25 | Medium: 0.25 <= p < 0.50 | High: 0.50 <= p < 0.75 | Critical: p >= 0.75
+0.40 is the operational flagging threshold specified for this phase. From the Phase-6
+OOF table, 0.60 maximizes F1 (0.6345) while 0.40 trades precision for recall (0.8676);
+the final business threshold should follow outreach cost/benefit, not test-set tuning.
+
+--- RISK SEGMENT ANALYSIS ---
+risk_segment  customers  avg_predicted_risk  actual_churned  pct_customers  actual_churn_rate_pct
+         Low       2790              0.0991             109        39.6138                 3.9068
+      Medium       1399              0.3787             259        19.8637                18.5132
+        High       1489              0.6303             568        21.1416                38.1464
+    Critical       1365              0.8498             933        19.3809                68.3516
+Totals: customers=7043 (== 7043: True), churned=1869 (== 1869: True)
+
+--- BUSINESS SEGMENTS (count / avg predicted risk / actual historical churn) ---
+
+Contract:
+      Contract  customers  avg_predicted_risk  actual_churned  actual_churn_rate_pct
+Month-to-month       3875              0.6262            1655                42.7097
+      One year       1473              0.2390             166                11.2695
+      Two year       1695              0.0745              48                 2.8319
+
+TenureGroup:
+ TenureGroup  customers  avg_predicted_risk  actual_churned  actual_churn_rate_pct
+   ≤6 months       1481              0.7069             784                52.9372
+ 7–12 months        705              0.5448             253                35.8865
+13–24 months       1024              0.4620             294                28.7109
+  25+ months       3833              0.2611             538                14.0360
+
+InternetService:
+InternetService  customers  avg_predicted_risk  actual_churned  actual_churn_rate_pct
+    Fiber optic       3096              0.6043            1297                41.8928
+            DSL       2421              0.3292             459                18.9591
+             No       1526              0.1553             113                 7.4050
+
+PaymentMethod:
+            PaymentMethod  customers  avg_predicted_risk  actual_churned  actual_churn_rate_pct
+         Electronic check       2365              0.6416            1071                45.2854
+             Mailed check       1612              0.3283             308                19.1067
+Bank transfer (automatic)       1544              0.2834             258                16.7098
+  Credit card (automatic)       1522              0.2763             232                15.2431
+
+MonthlyChargeBand:
+MonthlyChargeBand  customers  avg_predicted_risk  actual_churned  actual_churn_rate_pct
+      Medium-High       1757              0.5310             659                37.5071
+             High       1758              0.5073             578                32.8783
+       Medium-Low       1766              0.4034             434                24.5753
+              Low       1762              0.2085             198                11.2372
+
+Month-to-month + Fiber optic:
+ customers  avg_predicted_risk  actual_churned  actual_churn_rate_pct
+      2128              0.7483            1162                54.6053
+
+0–6 months + Fiber optic:
+ customers  avg_predicted_risk  actual_churned  actual_churn_rate_pct
+       620              0.8888             460                74.1935
+
+Month-to-month + 0–6 months:
+ customers  avg_predicted_risk  actual_churned  actual_churn_rate_pct
+      1413              0.7289             780                55.2017
+
+--- HIGH-RISK EXPORT (High + Critical, sorted by probability desc) ---
+File: outputs\predictions\high_risk_customers.csv (2854 customers)
+Top 10 preview:
+customerID  Churn  churn_probability  predicted_churn_at_0.40 risk_segment
+5178-LMXOP      1           0.964460                        1     Critical
+9497-QCMMS      1           0.963933                        1     Critical
+9300-AGZNL      1           0.963706                        1     Critical
+4424-TKOPW      1           0.963531                        1     Critical
+5150-ITWWB      0           0.963411                        1     Critical
+5567-WSELE      1           0.963396                        1     Critical
+7216-EWTRS      1           0.962884                        1     Critical
+2720-WGKHP      1           0.962843                        1     Critical
+1374-DMZUI      1           0.961243                        1     Critical
+7024-OHCCK      1           0.961075                        1     Critical
+
+--- POWER BI ARTIFACTS ---
+  powerbi\powerbi_dataset.csv  exists=True
+  powerbi\data_dictionary.csv  exists=True
+  powerbi\dax_measures.md  exists=True
+  powerbi\dashboard_documentation.md  exists=True
+
+--- METHODOLOGY & LIMITATIONS ---
+1. The saved pipeline was applied as-is; no retraining or refitting occurred.
+2. Scores for the 5,634 training customers are IN-SAMPLE (seen during fitting);
+   only the 1,409 test customers are out-of-sample. Use scores for triage, not as
+   calibrated outcome probabilities.
+3. Segment churn rates are historical observations; higher predicted risk and higher
+   observed churn are associations, not causal effects.
+4. Threshold 0.40 is an operational specification; business threshold selection
+   requires cost/benefit analysis (outreach cost vs retained revenue).
+
+--- VALIDATION ---
+PASS  exactly 7043 customers scored  (7043)
+PASS  customerID unique
+PASS  probability within [0,1]  ([0.011974, 0.964460])
+PASS  no missing risk scores
+PASS  flag column in {0,1}
+PASS  segments in {Low, Medium, High, Critical}
+PASS  High+Critical count == high-risk export rows  (2854 == 2854)
+PASS  high-risk export sorted by probability desc
+PASS  high-risk export segments only High/Critical
+PASS  Power BI dataset row count matches  (7043)
+PASS  Power BI dataset matches risk-score dataset
+PASS  saved model reproduces scores
+PASS  raw dataset unchanged
+PASS  cleaned dataset unchanged
+PASS  model-ready dataset unchanged
+
+PHASE 7 RISK SCORING: SUCCESS

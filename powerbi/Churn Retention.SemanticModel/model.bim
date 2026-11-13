@@ -1,0 +1,287 @@
+{
+  "name": "Churn Retention",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "expressions": [
+      {
+        "name": "ChurnCsvPath",
+        "kind": "m",
+        "expression": "\"C:\\path\\to\\powerbi_dataset.csv\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+      }
+    ],
+    "tables": [
+      {
+        "name": "powerbi_dataset",
+        "columns": [
+          {
+            "name": "customerID",
+            "sourceColumn": "customerID",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "gender",
+            "sourceColumn": "gender",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SeniorCitizen",
+            "sourceColumn": "SeniorCitizen",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Partner",
+            "sourceColumn": "Partner",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Dependents",
+            "sourceColumn": "Dependents",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "tenure",
+            "sourceColumn": "tenure",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "TenureGroup",
+            "sourceColumn": "TenureGroup",
+            "dataType": "string",
+            "summarizeBy": "none",
+            "sortByColumn": "Tenure order"
+          },
+          {
+            "name": "PhoneService",
+            "sourceColumn": "PhoneService",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MultipleLines",
+            "sourceColumn": "MultipleLines",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "InternetService",
+            "sourceColumn": "InternetService",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OnlineSecurity",
+            "sourceColumn": "OnlineSecurity",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OnlineBackup",
+            "sourceColumn": "OnlineBackup",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DeviceProtection",
+            "sourceColumn": "DeviceProtection",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "TechSupport",
+            "sourceColumn": "TechSupport",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "StreamingTV",
+            "sourceColumn": "StreamingTV",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "StreamingMovies",
+            "sourceColumn": "StreamingMovies",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ServiceCount",
+            "sourceColumn": "ServiceCount",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "HasSecuritySupport",
+            "sourceColumn": "HasSecuritySupport",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Contract",
+            "sourceColumn": "Contract",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PaperlessBilling",
+            "sourceColumn": "PaperlessBilling",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PaymentMethod",
+            "sourceColumn": "PaymentMethod",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MonthlyCharges",
+            "sourceColumn": "MonthlyCharges",
+            "dataType": "double",
+            "summarizeBy": "none",
+            "formatString": "$#,0.00"
+          },
+          {
+            "name": "MonthlyChargeBand",
+            "sourceColumn": "MonthlyChargeBand",
+            "dataType": "string",
+            "summarizeBy": "none",
+            "sortByColumn": "Charge band order"
+          },
+          {
+            "name": "TotalCharges",
+            "sourceColumn": "TotalCharges",
+            "dataType": "double",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "AvgMonthlyCharge",
+            "sourceColumn": "AvgMonthlyCharge",
+            "dataType": "double",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Churn",
+            "sourceColumn": "Churn",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "churn_probability",
+            "sourceColumn": "churn_probability",
+            "dataType": "double",
+            "summarizeBy": "none",
+            "formatString": "0.000"
+          },
+          {
+            "name": "predicted_churn_at_0.40",
+            "sourceColumn": "predicted_churn_at_0.40",
+            "dataType": "int64",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "risk_segment",
+            "sourceColumn": "risk_segment",
+            "dataType": "string",
+            "summarizeBy": "none",
+            "sortByColumn": "Risk order"
+          },
+          {
+            "name": "Historical status",
+            "sourceColumn": "Historical status",
+            "dataType": "string",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Tenure order",
+            "sourceColumn": "Tenure order",
+            "dataType": "int64",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "Risk order",
+            "sourceColumn": "Risk order",
+            "dataType": "int64",
+            "summarizeBy": "none",
+            "isHidden": true
+          },
+          {
+            "name": "Charge band order",
+            "sourceColumn": "Charge band order",
+            "dataType": "int64",
+            "summarizeBy": "none",
+            "isHidden": true
+          }
+        ],
+        "measures": [
+          {
+            "name": "Customers",
+            "expression": "COUNTROWS ( powerbi_dataset )",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Churned customers",
+            "expression": "CALCULATE ( [Customers], KEEPFILTERS ( powerbi_dataset[Churn] = 1 ) )",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Observed churn rate",
+            "expression": "DIVIDE ( [Churned customers], [Customers] )",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Flagged at 0.40",
+            "expression": "CALCULATE ( [Customers], KEEPFILTERS ( powerbi_dataset[predicted_churn_at_0.40] = 1 ) )",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Observed churn among flags",
+            "expression": "DIVIDE ( CALCULATE ( [Churned customers], KEEPFILTERS ( powerbi_dataset[predicted_churn_at_0.40] = 1 ) ), [Flagged at 0.40] )",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "High and Critical customers",
+            "expression": "CALCULATE ( [Customers], KEEPFILTERS ( powerbi_dataset[risk_segment] IN { \"High\", \"Critical\" } ) )",
+            "formatString": "#,0"
+          },
+          {
+            "name": "High and Critical monthly billings",
+            "expression": "CALCULATE ( SUM ( powerbi_dataset[MonthlyCharges] ), KEEPFILTERS ( powerbi_dataset[risk_segment] IN { \"High\", \"Critical\" } ) )",
+            "formatString": "$#,0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "powerbi_dataset",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Raw = Csv.Document(File.Contents(ChurnCsvPath), [Delimiter=\",\", Columns=29, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Raw, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"customerID\", type text}, {\"gender\", type text}, {\"SeniorCitizen\", Int64.Type}, {\"Partner\", type text}, {\"Dependents\", type text}, {\"tenure\", Int64.Type}, {\"TenureGroup\", type text}, {\"PhoneService\", type text}, {\"MultipleLines\", type text}, {\"InternetService\", type text}, {\"OnlineSecurity\", type text}, {\"OnlineBackup\", type text}, {\"DeviceProtection\", type text}, {\"TechSupport\", type text}, {\"StreamingTV\", type text}, {\"StreamingMovies\", type text}, {\"ServiceCount\", Int64.Type}, {\"HasSecuritySupport\", Int64.Type}, {\"Contract\", type text}, {\"PaperlessBilling\", type text}, {\"PaymentMethod\", type text}, {\"MonthlyCharges\", type number}, {\"MonthlyChargeBand\", type text}, {\"TotalCharges\", type number}, {\"AvgMonthlyCharge\", type number}, {\"Churn\", Int64.Type}, {\"churn_probability\", type number}, {\"predicted_churn_at_0.40\", Int64.Type}, {\"risk_segment\", type text}}, \"en-US\"),",
+                "    Outcome = Table.AddColumn(Typed, \"Historical status\", each if [Churn] = 1 then \"Churned\" else \"Retained\", type text),",
+                "    Sorted1 = Table.AddColumn(Outcome, \"Tenure order\", each List.PositionOf({\"≤6 months\", \"7–12 months\", \"13–24 months\", \"25+ months\"}, [TenureGroup]), Int64.Type),",
+                "    Sorted2 = Table.AddColumn(Sorted1, \"Risk order\", each List.PositionOf({\"Low\", \"Medium\", \"High\", \"Critical\"}, [risk_segment]), Int64.Type),",
+                "    Sorted3 = Table.AddColumn(Sorted2, \"Charge band order\", each List.PositionOf({\"Low\", \"Medium-Low\", \"Medium-High\", \"High\"}, [MonthlyChargeBand]), Int64.Type)",
+                "in",
+                "    Sorted3"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

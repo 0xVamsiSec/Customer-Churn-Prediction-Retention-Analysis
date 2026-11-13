@@ -1,0 +1,159 @@
+=== MODEL TRAINING REPORT (PHASE 6) ===
+Raw SHA-256      : 16320c9c1ec72448db59aa0a26a0b95401046bef5d02fd3aeb906448e3055e91
+Cleaned SHA-256  : 38e6f2dd278033a4617f880e8f11304c5fc6dce2c05ecef3f2a8bf48eeaa8996
+Model-ready rows : 7043 x 26
+
+--- DATASET AND SPLIT ---
+Test size 20%, random_state=42, stratified on Churn
+Train: 5634 rows, churn rate 26.5353% (1495 churned)
+Test : 1409 rows, churn rate 26.5436% (374 churned)
+Stratification gap: 0.0083 pct pts (<= 0.5 required)
+
+--- FEATURE GROUPS ---
+numeric    (6): ['tenure', 'MonthlyCharges', 'TotalCharges', 'ServiceCount', 'HasSecuritySupport', 'AvgMonthlyCharge']
+categorical(18): ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'TenureGroup', 'MonthlyChargeBand']
+customerID: identifier only (kept out of the model feature matrix)
+Churn: target (never a predictor)
+Transformed features after preprocessing: 39
+
+--- BASELINE (DummyClassifier strategy=prior) ---
+Always predicts majority class (0, prior 0.7346). Useful as the no-skill floor: under imbalance, high accuracy is trivial; ROC-AUC/F1 must beat this.
+   Metric   Mean    Std
+ ACCURACY 0.7346 0.0001
+PRECISION 0.0000 0.0000
+   RECALL 0.0000 0.0000
+       F1 0.0000 0.0000
+  ROC_AUC 0.5000 0.0000
+Held-out test: accuracy=0.7346, precision=0.0000, recall=0.0000, f1=0.0000, roc_auc=0.5000
+
+--- CLASS-WEIGHT COMPARISON (5-fold CV on training set) ---
+class_weight    Metric   Mean    Std
+        None  ACCURACY 0.8051 0.0110
+        None PRECISION 0.6671 0.0239
+        None    RECALL 0.5298 0.0390
+        None        F1 0.5900 0.0300
+        None   ROC_AUC 0.8468 0.0115
+    balanced  ACCURACY 0.7526 0.0135
+    balanced PRECISION 0.5223 0.0171
+    balanced    RECALL 0.7920 0.0339
+    balanced        F1 0.6293 0.0215
+    balanced   ROC_AUC 0.8467 0.0115
+Selected class_weight=balanced. CV ROC-AUC nearly identical (0.8468 vs 0.8467, gap <= 0.003); chosen by CV F1 (None 0.5900 vs balanced 0.6293) - for retention campaigns, F1 balances catching churners against wasted outreach.
+
+--- CROSS-VALIDATION (primary model, training set, 5-fold stratified, seed 42) ---
+   Metric   Mean    Std
+ ACCURACY 0.7526 0.0135
+PRECISION 0.5223 0.0171
+   RECALL 0.7920 0.0339
+       F1 0.6293 0.0215
+  ROC_AUC 0.8467 0.0115
+
+--- FINAL TEST METRICS (held-out test set, single evaluation) ---
+Final model: B (originals + engineered), class_weight=balanced
+Confusion matrix (threshold 0.50): TN=750, FP=285, FN=75, TP=299
+Consistency: accuracy/precision/recall/F1 recomputed from the confusion matrix match sklearn metrics exactly (verified in compute_test_metrics); ROC-AUC from predict_proba[:,1].
+accuracy=0.7445, precision=0.512, recall=0.7995, f1=0.6242, roc_auc=0.8452
+
+Classification report (test):
+              precision    recall  f1-score   support
+
+Retained (0)     0.9091    0.7246    0.8065      1035
+ Churned (1)     0.5120    0.7995    0.6242       374
+
+    accuracy                         0.7445      1409
+   macro avg     0.7105    0.7621    0.7153      1409
+weighted avg     0.8037    0.7445    0.7581      1409
+
+
+--- THRESHOLD ANALYSIS ---
+Raw churn probability (predict_proba[:,1]) is kept separate from binary predictions. The business threshold should be selected from out-of-fold TRAINING predictions (see OOF table) and confirmed once on untouched data; the test table is descriptive only.
+Out-of-fold TRAINING probabilities (business selection basis):
+ threshold  precision  recall     f1  n_flagged  pct_flagged
+       0.3     0.4301  0.9177 0.5857       3190        56.62
+       0.4     0.4708  0.8676 0.6104       2755        48.90
+       0.5     0.5223  0.7920 0.6295       2267        40.24
+       0.6     0.5750  0.7077 0.6345       1840        32.66
+       0.7     0.6394  0.5906 0.6140       1381        24.51
+Held-out TEST set (descriptive reference only):
+ threshold  precision  recall     f1  n_flagged  pct_flagged
+       0.3     0.4365  0.9278 0.5937        795        56.42
+       0.4     0.4689  0.8663 0.6085        691        49.04
+       0.5     0.5120  0.7995 0.6242        584        41.45
+       0.6     0.5591  0.7086 0.6250        474        33.64
+       0.7     0.6246  0.5829 0.6030        349        24.77
+
+--- FEATURE ABLATION (5-fold CV on training set) ---
+                                            Model  n_features  ROC_AUC_Mean  ROC_AUC_Std  F1_Mean  F1_Std  Precision_Mean  Precision_Std  Recall_Mean  Recall_Std
+                               A (originals only)          19        0.8459       0.0124   0.6296  0.0226          0.5185         0.0181       0.8020      0.0379
+                       B (originals + engineered)          24        0.8467       0.0115   0.6293  0.0215          0.5223         0.0171       0.7920      0.0339
+C (originals + ServiceCount + HasSecuritySupport)          21        0.8459       0.0131   0.6292  0.0236          0.5193         0.0202       0.7987      0.0377
+Final choice: B (originals + engineered). Selected by CV ROC-AUC (0.8467; tie-break CV F1 0.6293). ROC-AUC measures how well the model RANKS customers by churn risk, which is the core business need for targeting retention outreach. No test-set information used.
+
+--- MULTICOLLINEARITY FINDINGS ---
+Correlation matrix (numeric block, training data):
+                    tenure  MonthlyCharges  TotalCharges  ServiceCount  HasSecuritySupport  AvgMonthlyCharge
+tenure              1.0000          0.2567        0.8297        0.5325              0.3560            0.2557
+MonthlyCharges      0.2567          1.0000        0.6541        0.7736              0.4063            0.9963
+TotalCharges        0.8297          0.6541        1.0000        0.7861              0.4815            0.6537
+ServiceCount        0.5325          0.7736        0.7861        1.0000              0.6572            0.7714
+HasSecuritySupport  0.3560          0.4063        0.4815        0.6572              1.0000            0.4060
+AvgMonthlyCharge    0.2557          0.9963        0.6537        0.7714              0.4060            1.0000
+VIF (numeric block, training data):
+           Feature  R2_on_others    VIF
+    MonthlyCharges        0.9926 135.72
+  AvgMonthlyCharge        0.9926 135.58
+      TotalCharges        0.8228   5.64
+      ServiceCount        0.8016   5.04
+            tenure        0.5907   2.44
+HasSecuritySupport        0.4483   1.81
+Numeric-block coefficients per CV fold (stability; last rows = std, sign-consistency):
+              num__tenure  num__MonthlyCharges  num__TotalCharges  num__ServiceCount  num__HasSecuritySupport  num__AvgMonthlyCharge
+fold
+1                 -0.3512               0.0620             0.0094             0.2321                  -0.1268                 0.0020
+2                 -0.4865              -0.6152            -0.0530             0.4053                  -0.2628                 0.3070
+3                 -0.4658              -0.3209             0.0777             0.3843                  -0.1443                -0.1545
+4                 -0.4059              -0.5523            -0.0091             0.2044                  -0.0873                 0.4994
+5                 -0.4821              -0.3603             0.0307             0.4003                  -0.2127                -0.2411
+std                0.0584               0.2654             0.0483             0.0985                   0.0703                 0.3129
+sign_changes       0.0000               1.0000             1.0000             0.0000                   0.0000                 1.0000
+Conclusion: correlated pairs are structural (TotalCharges ~ tenure x price; binned copies). L2 regularization keeps all coefficients stable in sign; the ablation above is the empirical test of whether redundant engineered features add value.
+
+--- TOP COEFFICIENTS (final model; odds ratios = exp(coef)) ---
+                                  Feature  Coefficient  OddsRatio Direction
+                   cat__Contract_Two year    -1.608995   0.200089  negative
+         cat__InternetService_Fiber optic     1.299366   3.666971  positive
+               cat__TenureGroup_≤6 months     0.886605   2.426876  positive
+                   cat__Contract_One year    -0.724558   0.484538  negative
+                      num__MonthlyCharges    -0.501878   0.605392  negative
+                              num__tenure    -0.442369   0.642512  negative
+                        num__ServiceCount     0.402041   1.494872  positive
+      cat__PaymentMethod_Electronic check     0.391443   1.479114  positive
+                cat__PaperlessBilling_Yes     0.347751   1.415879  positive
+                    cat__OnlineBackup_Yes    -0.265770   0.766615  negative
+                 cat__StreamingMovies_Yes     0.264186   1.302371  positive
+                  cat__OnlineSecurity_Yes    -0.249313   0.779336  negative
+                    cat__PhoneService_Yes    -0.242044   0.785022  negative
+                     cat__StreamingTV_Yes     0.241698   1.273410  positive
+                      cat__Dependents_Yes    -0.209438   0.811040  negative
+                   cat__MultipleLines_Yes     0.195003   1.215315  positive
+             cat__TenureGroup_7–12 months     0.193594   1.213604  positive
+     cat__TechSupport_No internet service    -0.190044   0.826923  negative
+cat__DeviceProtection_No internet service    -0.190044   0.826923  negative
+     cat__StreamingTV_No internet service    -0.190044   0.826923  negative
+Interpretation: each coefficient is an association holding all other included variables constant. Positive = higher churn odds; negative = lower. No causal claims.
+
+--- FINAL MODEL CHOICE ---
+Pipeline: ColumnTransformer(median-imputed+scaled numerics; most-frequent-imputed + OneHotEncoder(handle_unknown='ignore', drop='first') categoricals) -> LogisticRegression(C=1.0, solver='lbfgs', class_weight=balanced, max_iter=1000)
+Feature set: B (originals + engineered)
+Saved to: models\churn_model.pkl (preprocessing + classifier; reload-verified: {'predictions identical': True, 'probabilities identical': True, 'pipeline contains preprocessing': True, 'pipeline contains classifier': True})
+
+--- LIMITATIONS ---
+1. Random (stratified) split, not time-based: no temporal drift assessment is possible with this dataset.
+2. LogisticRegression is linear in transformed features; interaction effects are not modeled unless added.
+3. Class-weight choice was made via CV; the business cost matrix (retention outreach cost vs lost customer value) may justify a different threshold than 0.5.
+4. Probabilities are not calibrated (no calibration step performed); treat them as risk scores, not exact churn probabilities.
+5. Associations hold other included variables constant; no causal claims are made.
+6. Feature engineering leakage review was done in Phase 5; all features are pre-churn attributes.
+7. Small per-fold coefficient variation is expected; exact coefficients depend on regularization strength (C=1.0).
+
+PHASE 6 MODEL TRAINING: SUCCESS

@@ -1,0 +1,30 @@
+Column,Data Type,Source,Description
+customerID,str,Identifier,Unique customer identifier (join key for Power BI)
+gender,str,Original,Customer gender (Female / Male)
+SeniorCitizen,int64,Original,"1 if customer is a senior citizen (65+), else 0"
+Partner,str,Original,Customer has a spouse or partner (Yes / No)
+Dependents,str,Original,Customer has dependents such as children (Yes / No)
+tenure,int64,Original,Number of months the customer has been with the company
+TenureGroup,str,Engineered,Engineered: relationship-age band derived from tenure (tenure=0 falls in the first group)
+PhoneService,str,Original,Subscribes to home phone service (Yes / No)
+MultipleLines,str,Original,Multiple phone lines for phone customers (Yes / No / No phone service)
+InternetService,str,Original,Internet service type (DSL / Fiber optic / No)
+OnlineSecurity,str,Original,Online security add-on (Yes / No / No internet service)
+OnlineBackup,str,Original,Online backup add-on (Yes / No / No internet service)
+DeviceProtection,str,Original,Device protection add-on (Yes / No / No internet service)
+TechSupport,str,Original,Tech support add-on (Yes / No / No internet service)
+StreamingTV,str,Original,TV streaming add-on (Yes / No / No internet service)
+StreamingMovies,str,Original,Movie streaming add-on (Yes / No / No internet service)
+ServiceCount,int64,Engineered,Engineered: number of optional add-on services subscribed (0-7; see SERVICE_COUNT_COLUMNS)
+HasSecuritySupport,int64,Engineered,"Engineered: 1 if customer has OnlineSecurity and/or TechSupport, else 0"
+Contract,str,Original,Contract term (Month-to-month / One year / Two year)
+PaperlessBilling,str,Original,Bill delivered electronically (Yes / No)
+PaymentMethod,str,Original,"How the customer pays (electronic check, mailed check, automatic bank transfer, automatic credit card)"
+MonthlyCharges,float64,Original,Current monthly charge in USD
+MonthlyChargeBand,str,Engineered,Engineered: MonthlyCharges quartile band (boundaries computed from this dataset)
+TotalCharges,float64,Original,Total amount billed to date in USD (accumulates with tenure)
+AvgMonthlyCharge,float64,Engineered,Engineered: average monthly spend = TotalCharges/tenure; for tenure=0 uses MonthlyCharges (no billing history yet)
+Churn,int64,Target,"Actual historical churn: 1 = churned, 0 = retained"
+churn_probability,float64,Model output,"Predicted churn probability from the saved Logistic Regression pipeline, 0-1 continuous"
+predicted_churn_at_0.40,int64,Model output,"Binary flag: 1 if churn_probability >= 0.40 (operational flagging threshold), else 0"
+risk_segment,str,Model output,"Business risk band of churn_probability: Low <0.25, Medium 0.25-<0.50, High 0.50-<0.75, Critical >=0.75"

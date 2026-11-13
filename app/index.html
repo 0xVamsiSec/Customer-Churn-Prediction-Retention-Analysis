@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#122b2b">
+  <title>Customer Churn Scoring</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/main.js" defer></script>
+</head>
+<body>
+  <header class="top"><div class="wrap brand">Telecom retention<span>Portfolio demo</span></div></header>
+  <main class="wrap">
+    <header class="intro">
+      <h1>Customer churn scoring</h1>
+      <p>Score a customer profile or upload a CSV using the saved logistic regression model.</p>
+    </header>
+    <div class="workspace">
+      <section class="panel profile" aria-labelledby="profile-title">
+        <div class="panel-heading">
+          <div><h2 id="profile-title">Customer profile</h2><p>Edit the example or enter your own details.</p></div>
+          <button id="example" type="button" class="secondary" disabled>Load example</button>
+        </div>
+        <form id="profile">
+          <div id="fields"></div>
+          <div class="form-footer"><button id="score" disabled>Score customer</button></div>
+        </form>
+        <p id="profile-error" class="status error" role="alert"></p>
+      </section>
+      <aside class="side">
+        <section class="panel result" aria-labelledby="result-title">
+          <h2 id="result-title">Scoring result</h2>
+          <div id="result" aria-live="polite">
+            <p id="placeholder">Submit a profile to see its score and risk band.</p>
+            <div id="details" hidden>
+              <div class="score-line"><strong id="value"></strong><span id="band"></span></div>
+              <meter id="meter" min="0" max="1" aria-label="Churn risk score"></meter>
+              <p id="flag"></p>
+            </div>
+          </div>
+          <p class="small">The score ranks churn risk on a 0–1 scale. It is uncalibrated.</p>
+        </section>
+        <section class="panel batch" aria-labelledby="batch-title">
+          <h2 id="batch-title">Batch scoring</h2>
+          <p>Upload a CSV with the profile fields and an optional <code>customerID</code>. Up to 10,000 rows or 2 MB.</p>
+          <a href="/example.csv" download>Download example CSV</a>
+          <form id="batch">
+            <label for="file">Customer CSV</label>
+            <input id="file" type="file" accept=".csv,text/csv" required>
+            <button id="batch-submit">Score CSV and download</button>
+          </form>
+          <p id="batch-status" class="status" role="status"></p>
+        </section>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

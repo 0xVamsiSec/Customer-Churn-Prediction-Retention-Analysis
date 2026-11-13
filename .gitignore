@@ -1,0 +1,26 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# pytest
+.pytest_cache/
+
+# Local configuration
+.env
+.env.*
+!.env.example
+
+# Power BI Desktop local cache and settings
+**/.pbi/cache.abf
+**/.pbi/localSettings.json
+
+# OS artifacts
+Thumbs.db
+.DS_Store

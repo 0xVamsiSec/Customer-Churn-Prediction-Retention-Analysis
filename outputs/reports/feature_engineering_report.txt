@@ -1,0 +1,83 @@
+=== FEATURE ENGINEERING & SELECTION REPORT ===
+Source                 : data\processed\cleaned_customer_churn.csv
+Cleaned SHA-256        : 38e6f2dd278033a4617f880e8f11304c5fc6dce2c05ecef3f2a8bf48eeaa8996
+
+Feature inventory      : 21 features reviewed -> outputs\reports\feature_inventory.csv
+
+--- TenureGroup ---
+Labels                 : ['≤6 months', '7–12 months', '13–24 months', '25+ months']
+Counts                 : {'≤6 months': 1481, '7–12 months': 705, '13–24 months': 1024, '25+ months': 3833}
+tenure=0 rows          : 11 (all in first group)
+Validations            : no_missing=True, all_groups_nonempty=True, counts_sum_to_dataset=True, exactly_one_group_per_customer=True, counts_match_independent_masks=True
+
+--- MonthlyChargeBand ---
+Method                 : quartiles (qcut q=4) of MonthlyCharges computed from this dataset
+Boundaries             : [18.25, 35.5, 70.35, 89.85, 118.75]
+Counts                 : {'Low': 1762, 'Medium-Low': 1766, 'Medium-High': 1757, 'High': 1758}
+Validations            : no_missing=True, counts_sum_to_dataset=True, boundaries_strictly_increasing=True, counts={'Low': 1762, 'Medium-Low': 1766, 'Medium-High': 1757, 'High': 1758}
+
+--- ServiceCount ---
+Contributors           : ['MultipleLines', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies']
+Treatment              : Yes=1, No=0, 'No internet service'/'No phone service'=0; PhoneService & InternetService excluded (see docstring)
+Stats                  : min=0, max=7, mean=2.4597, median=2.0, missing=0
+
+--- HasSecuritySupport ---
+Counts                 : {0: 4079, 1: 2964}
+
+--- AvgMonthlyCharge ---
+Stats                  : min=13.775, max=121.4, mean=64.7629, median=70.3375, missing=0
+tenure=0 handling      : 11 rows use MonthlyCharges (verified=True)
+
+--- Redundancy analysis (numeric block, Pearson) ---
+                    tenure  MonthlyCharges  TotalCharges  ServiceCount  HasSecuritySupport  AvgMonthlyCharge
+tenure              1.0000          0.2479        0.8262        0.5266              0.3518            0.2472
+MonthlyCharges      0.2479          1.0000        0.6512        0.7730              0.4071            0.9962
+TotalCharges        0.8262          0.6512        1.0000        0.7859              0.4820            0.6510
+ServiceCount        0.5266          0.7730        0.7859        1.0000              0.6572            0.7711
+HasSecuritySupport  0.3518          0.4071        0.4820        0.6572              1.0000            0.4065
+AvgMonthlyCharge    0.2472          0.9962        0.6510        0.7711              0.4065            1.0000
+1. corr(tenure, TotalCharges) = 0.8262: TotalCharges structurally accumulates as roughly tenure x average monthly price, so the pair is necessarily correlated - this is expected, not a data error.
+2. Why keep BOTH: tenure measures relationship length; TotalCharges measures lifetime billing value. Two customers with equal tenure can have very different TotalCharges (price tier), and equal TotalCharges can hide very different tenures. Each carries information the other does not fully determine.
+3. Multicollinearity concern: mainly affects linear models (inflated coefficient variance, unstable coefficients). Tree-based and boosted models are largely unaffected by pairwise collinearity.
+4. Assessment plan (Phase 6, not now): compute VIF on the numeric block, compare regularized linear models with/without TotalCharges, and inspect coefficient stability. No feature is dropped preemptively.
+5. corr(TotalCharges, AvgMonthlyCharge) = 0.6510, corr(tenure, AvgMonthlyCharge) = 0.2472: AvgMonthlyCharge partially de-couples price level from tenure but still overlaps MonthlyCharges; flagged as redundancy concern for linear models.
+
+Leakage review         : 26 rows -> outputs\reports\feature_leakage_review.csv
+Excluded (not predictors): ['customerID', 'Churn']
+
+Feature selection report: 26 rows, 24 candidate predictors -> outputs\reports\feature_selection_report.csv
+
+--- Final validation of model-ready frame ---
+PASS  row count == 7043  (7043)
+PASS  required columns present, nothing extra  (26 columns)
+PASS  customerID unique / no duplicates
+PASS  no missing values anywhere
+PASS  Churn in {0,1}
+PASS  TenureGroup labels exact  (['13–24 months', '25+ months', '7–12 months', '≤6 months'])
+PASS  TenureGroup group counts > 0  ({'25+ months': 3833, '≤6 months': 1481, '13–24 months': 1024, '7–12 months': 705})
+PASS  tenure=0 in first group  (11 rows)
+PASS  MonthlyChargeBand labels exact
+PASS  ServiceCount in [0,7]  (min=0, max=7)
+PASS  HasSecuritySupport in {0,1}
+PASS  AvgMonthlyCharge positive  (range [13.7750, 121.4000])
+PASS  no leakage features present
+
+--- Final validation of saved model-ready frame (exact order) ---
+PASS  row count == 7043  (7043)
+PASS  column order as designed
+PASS  customerID unique / no duplicates
+PASS  no missing values anywhere
+PASS  Churn in {0,1}
+PASS  TenureGroup labels exact  (['13–24 months', '25+ months', '7–12 months', '≤6 months'])
+PASS  TenureGroup group counts > 0  ({'25+ months': 3833, '≤6 months': 1481, '13–24 months': 1024, '7–12 months': 705})
+PASS  tenure=0 in first group  (11 rows)
+PASS  MonthlyChargeBand labels exact
+PASS  ServiceCount in [0,7]  (min=0, max=7)
+PASS  HasSecuritySupport in {0,1}
+PASS  AvgMonthlyCharge positive  (range [13.7750, 121.4000])
+PASS  no leakage features present
+
+Model-ready dataset    : 7043 rows x 26 cols -> data\processed\model_ready_data.csv
+Boundary note          : no encoder/scaler/imputer fitted, no model trained (Phase 6 work)
+
+PHASE 5 FEATURE ENGINEERING: SUCCESS

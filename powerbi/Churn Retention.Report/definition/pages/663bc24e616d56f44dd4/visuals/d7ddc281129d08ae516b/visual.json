@@ -1,0 +1,51 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "d7ddc281129d08ae516b",
+  "position": {
+    "x": 24,
+    "y": 17,
+    "width": 1232,
+    "height": 72,
+    "z": 1000,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Churn drivers",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontSize": "29px",
+                      "color": "#122B2B"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Observed associations in the historical snapshot. Use them to choose hypotheses for a retention test.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "15px",
+                      "color": "#49615D"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

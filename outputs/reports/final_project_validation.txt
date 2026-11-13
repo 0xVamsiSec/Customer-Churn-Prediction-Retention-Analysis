@@ -1,0 +1,95 @@
+=== FINAL PROJECT VALIDATION (PHASE 8) ===
+Generated : 2026-08-31T17:13:27.110683+00:00
+Project   : .
+
+--- DATA ---
+--- MODEL ---
+--- PREDICTIONS ---
+--- POWER BI ---
+--- REPORTS & NOTEBOOKS ---
+Notebook execution status:
+  OK  12/12 cells executed, 0 errors  notebooks/01_data_cleaning.ipynb
+  OK  16/16 cells executed, 0 errors  notebooks/02_exploratory_data_analysis.ipynb
+  OK  13/13 cells executed, 0 errors  notebooks/03_feature_engineering.ipynb
+  OK  18/18 cells executed, 0 errors  notebooks/04_churn_prediction_model.ipynb
+  OK  11/11 cells executed, 0 errors  notebooks/05_risk_scoring_powerbi.ipynb
+--- PROJECT TREE (.venv, .git, __pycache__ excluded) ---
+Customer Churn Prediction & Retention Analysis/
+|-- data/
+|   |-- processed/
+|   |   |-- cleaned_customer_churn.csv  (970,043 bytes)
+|   |   `-- model_ready_data.csv  (1,244,304 bytes)
+|   `-- raw/
+|       `-- customer_churn.csv  (970,457 bytes)
+|-- docs/
+|   |-- INTERVIEW_PREPARATION.md  (16,908 bytes)
+|   `-- PROJECT_DOCUMENTATION.md  (11,165 bytes)
+|-- models/
+|   |-- churn_model.pkl  (9,930 bytes)
+|   `-- model_metadata.json  (1,776 bytes)
+|-- notebooks/
+|   |-- 01_data_cleaning.ipynb  (39,340 bytes)
+|   |-- 02_exploratory_data_analysis.ipynb  (798,008 bytes)
+|   |-- 03_feature_engineering.ipynb  (103,377 bytes)
+|   |-- 04_churn_prediction_model.ipynb  (271,431 bytes)
+|   `-- 05_risk_scoring_powerbi.ipynb  (48,790 bytes)
+|-- outputs/
+|   |-- figures/
+|   |   |-- 01_churn_distribution.png  (31,347 bytes)
+|   |   |-- 02_numeric_features_by_churn.png  (63,528 bytes)
+|   |   |-- 03_categorical_churn_rates.png  (318,723 bytes)
+|   |   |-- 04_tenure_group_analysis.png  (66,649 bytes)
+|   |   |-- 05_contract_analysis.png  (60,949 bytes)
+|   |   |-- 06_monthly_charges_bands.png  (39,868 bytes)
+|   |   |-- 07_correlation_heatmap.png  (105,243 bytes)
+|   |   |-- 08_segment_churn_heatmaps.png  (139,897 bytes)
+|   |   |-- 09_confusion_matrix.png  (36,941 bytes)
+|   |   |-- 10_roc_curve.png  (54,085 bytes)
+|   |   `-- 11_precision_recall_curve.png  (52,862 bytes)
+|   |-- predictions/
+|   |   |-- customer_risk_scores.csv  (290,291 bytes)
+|   |   `-- high_risk_customers.csv  (119,326 bytes)
+|   `-- reports/
+|       |-- customer_risk_report.txt  (7,637 bytes)
+|       |-- data_cleaning_report.txt  (3,094 bytes)
+|       |-- data_quality_report.txt  (224,577 bytes)
+|       |-- data_quality_summary.csv  (372 bytes)
+|       |-- eda_report.txt  (18,792 bytes)
+|       |-- feature_engineering_report.txt  (6,110 bytes)
+|       |-- feature_inventory.csv  (91,906 bytes)
+|       |-- feature_leakage_review.csv  (3,314 bytes)
+|       |-- feature_selection_report.csv  (5,038 bytes)
+|       |-- logistic_coefficients.csv  (2,214 bytes)
+|       |-- model_training_report.txt  (11,458 bytes)
+|       |-- phase1_setup_report.txt  (3,325 bytes)
+|       |-- retention_strategy_report.txt  (5,361 bytes)
+|       `-- test_metrics.csv  (245 bytes)
+|-- powerbi/
+|   |-- dashboard_documentation.md  (5,500 bytes)
+|   |-- data_dictionary.csv  (2,741 bytes)
+|   |-- dax_measures.md  (3,575 bytes)
+|   `-- powerbi_dataset.csv  (1,433,375 bytes)
+|-- src/
+|   |-- __init__.py  (0 bytes)
+|   |-- data_cleaning.py  (12,810 bytes)
+|   |-- data_quality_audit.py  (9,190 bytes)
+|   |-- eda.py  (26,594 bytes)
+|   |-- evaluate.py  (7,480 bytes)
+|   |-- feature_engineering.py  (27,579 bytes)
+|   |-- preprocessing.py  (6,305 bytes)
+|   |-- project_validation.py  (17,931 bytes)
+|   |-- risk_scoring.py  (34,752 bytes)
+|   `-- train.py  (25,688 bytes)
+|-- tests/
+|   `-- __init__.py  (0 bytes)
+|-- .gitignore  (178 bytes)
+|-- MASTER PROMPT — Build Customer Churn Prediction & Retention Analysis From Scratch.md  (32,098 bytes)
+|-- README.md  (7,618 bytes)
+|-- requirements.txt  (82 bytes)
+`-- run_pipeline.ps1  (1,809 bytes)
+
+--- SUMMARY ---
+Total checks passed : 67
+Final status        : PASS
+
+PHASE 8 FINAL PROJECT VALIDATION: SUCCESS

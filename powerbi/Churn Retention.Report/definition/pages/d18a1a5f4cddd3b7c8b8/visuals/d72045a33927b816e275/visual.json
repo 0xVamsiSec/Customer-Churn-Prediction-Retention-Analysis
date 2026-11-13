@@ -1,0 +1,267 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "d72045a33927b816e275",
+  "position": {
+    "x": 390,
+    "y": 284,
+    "width": 866,
+    "height": 472,
+    "z": 8000,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi_dataset"
+                    }
+                  },
+                  "Property": "customerID"
+                }
+              },
+              "queryRef": "powerbi_dataset.customerID",
+              "nativeQueryRef": "Customer ID",
+              "displayName": "Customer ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi_dataset"
+                    }
+                  },
+                  "Property": "risk_segment"
+                }
+              },
+              "queryRef": "powerbi_dataset.risk_segment",
+              "nativeQueryRef": "Risk band",
+              "displayName": "Risk band"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi_dataset"
+                    }
+                  },
+                  "Property": "churn_probability"
+                }
+              },
+              "queryRef": "powerbi_dataset.churn_probability",
+              "nativeQueryRef": "Risk score",
+              "displayName": "Risk score"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi_dataset"
+                    }
+                  },
+                  "Property": "predicted_churn_at_0.40"
+                }
+              },
+              "queryRef": "powerbi_dataset.predicted_churn_at_0.40",
+              "nativeQueryRef": "Flag at 0.40",
+              "displayName": "Flag at 0.40"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi_dataset"
+                    }
+                  },
+                  "Property": "Historical status"
+                }
+              },
+              "queryRef": "powerbi_dataset.Historical status",
+              "nativeQueryRef": "Historical status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi_dataset"
+                    }
+                  },
+                  "Property": "Contract"
+                }
+              },
+              "queryRef": "powerbi_dataset.Contract",
+              "nativeQueryRef": "Contract"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi_dataset"
+                    }
+                  },
+                  "Property": "tenure"
+                }
+              },
+              "queryRef": "powerbi_dataset.tenure",
+              "nativeQueryRef": "Tenure (months)",
+              "displayName": "Tenure (months)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi_dataset"
+                    }
+                  },
+                  "Property": "InternetService"
+                }
+              },
+              "queryRef": "powerbi_dataset.InternetService",
+              "nativeQueryRef": "Internet service",
+              "displayName": "Internet service"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "powerbi_dataset"
+                    }
+                  },
+                  "Property": "MonthlyCharges"
+                }
+              },
+              "queryRef": "powerbi_dataset.MonthlyCharges",
+              "nativeQueryRef": "Monthly charges",
+              "displayName": "Monthly charges"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "powerbi_dataset"
+                  }
+                },
+                "Property": "churn_probability"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Historical customers by score'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#122B2B'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

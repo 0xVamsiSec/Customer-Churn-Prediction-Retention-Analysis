@@ -1,0 +1,85 @@
+=== RETENTION STRATEGY REPORT (PHASE 8) ===
+Basis: actual risk scores of all 7,043 customers (models/churn_model.pkl applied as-is)
+All figures are observed values from data/processed/model_ready_data.csv + scored output.
+
+--- SEGMENT OVERVIEW ---
+risk_segment  customers  avg_predicted_risk  actual_churned  avg_monthly_charges  total_monthly_charges  pct_customers  actual_churn_rate_pct
+         Low       2790              0.0991             109                53.62              149608.05          39.61                   3.91
+      Medium       1399              0.3787             259                62.65               87652.15          19.86                  18.51
+        High       1489              0.6303             568                73.43              109332.50          21.14                  38.15
+    Critical       1365              0.8498             933                80.24              109523.90          19.38                  68.35
+
+--- TOP MODEL DRIVERS (from logistic_coefficients.csv; associations, not causes) ---
+                            Feature  Coefficient  OddsRatio Direction
+             cat__Contract_Two year    -1.608995   0.200089  negative
+   cat__InternetService_Fiber optic     1.299366   3.666971  positive
+         cat__TenureGroup_≤6 months     0.886605   2.426876  positive
+             cat__Contract_One year    -0.724558   0.484538  negative
+                num__MonthlyCharges    -0.501878   0.605392  negative
+                        num__tenure    -0.442369   0.642512  negative
+                  num__ServiceCount     0.402041   1.494872  positive
+cat__PaymentMethod_Electronic check     0.391443   1.479114  positive
+          cat__PaperlessBilling_Yes     0.347751   1.415879  positive
+              cat__OnlineBackup_Yes    -0.265770   0.766615  negative
+Reading: positive coefficients increase churn odds, negative decrease (odds ratio = exp(coef)),
+each holding all other included variables constant.
+
+--- PRIORITY 1: CRITICAL-RISK CUSTOMERS (probability >= 0.75) ---
+Customers            : 1365 (19.38% of base)
+Average risk         : 0.8498
+Historical churn     : 933 of 1365 (68.35%)
+Monthly revenue pool : $109,523.90 (avg $80.24/customer)
+Concentration        : 1363 month-to-month | 1188 fiber optic | 1047 electronic check | 784 tenure <= 6 months
+Proposed actions:
+  1. Proactive human outreach within 24-48 hours (call, not email) - highest-risk pool.
+  2. Save-desk retention offers: targeted discounts or plan changes; prioritize
+     month-to-month + fiber customers (largest high-risk overlap in this segment).
+  3. Contract upgrade incentive to one/two-year terms (two-year contracts show the
+     lowest observed churn: 2.83%).
+  4. Executive/senior-agent escalation for the top probability decile.
+  5. Track save rate per offer; A/B test before scaling (not yet proven to reduce churn).
+
+--- PRIORITY 2: HIGH-RISK CUSTOMERS (probability 0.50-<0.75) ---
+Customers            : 1489 (21.14% of base)
+Average risk         : 0.6303
+Historical churn     : 568 of 1489 (38.15%)
+Monthly revenue pool : $109,332.50 (avg $73.43/customer)
+Proposed actions:
+  1. Targeted email/SMS campaign within 1-2 weeks with a clear value proposition.
+  2. Offer security/support add-on trials: customers WITHOUT OnlineSecurity showed
+     41.77% observed churn vs 14.61% with it; TechSupport 41.64% vs 15.17%.
+  3. Payment migration nudge: move electronic-check users to automatic payments
+     (electronic check observed churn 45.29% vs 15.24-16.71% for automatic methods).
+  4. Monitor engagement signals; escalate to Priority 1 behavior if risk rises on re-score.
+
+--- PRIORITY 3: MEDIUM-RISK CUSTOMERS (probability 0.25-<0.50) ---
+Customers            : 1399 (19.86% of base)
+Average risk         : 0.3787
+Historical churn     : 259 of 1399 (18.51%)
+Proposed actions:
+  1. Low-cost digital engagement: onboarding/education content, feature tips.
+  2. Satisfaction pulse survey to catch fixable friction early.
+  3. Loyalty/rewards enrollment for tenure milestones.
+  4. Include in quarterly re-scoring; promote to higher priority if risk increases.
+
+--- STANDARD MANAGEMENT: LOW-RISK CUSTOMERS (probability < 0.25) ---
+Customers            : 2790 (39.61% of base)
+Average risk         : 0.0991
+Historical churn     : 109 of 2790 (3.91%)
+Proposed actions:
+  1. Standard lifecycle communication; no expensive retention spend.
+  2. Referral and advocacy programs (satisfied, stable base).
+  3. Careful upsell of add-ons (ServiceCount associates with retention) without
+     pushing overall price into the high monthly-charge bands.
+  4. Re-score quarterly to detect risk drift early.
+
+--- GOVERNANCE & CAVEATS ---
+1. These are PROPOSED actions based on observed associations in historical data;
+   none has been proven to reduce churn in this dataset. Validate via A/B tests.
+2. Re-score the base regularly (model: models/churn_model.pkl, pipeline: run_pipeline.ps1).
+3. The 0.40 operational threshold trades precision for recall; the final business
+   threshold should reflect outreach cost vs expected retained revenue.
+4. Training-set customers are scored in-sample; treat per-customer scores as triage
+   priorities, not calibrated probabilities.
+
+PHASE 8 RETENTION STRATEGY: GENERATED FROM ACTUAL SCORING OUTPUT

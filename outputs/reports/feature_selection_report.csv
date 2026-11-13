@@ -1,0 +1,27 @@
+Feature,Original/Engineered,Data Type,Included in Model,Reason,Leakage Risk,Redundancy Concern
+customerID,Original,str,No (dataset only),Identifier for customer-level joins/predictions,None (identifier),"None (identifier, not a predictor)"
+gender,Original,str,Yes,EDA shows signal: Churn-rate spread 0.76 pts across categories (26.16% for Male vs 26.92% for Female),Low,"None structural; weak standalone signal - keep, let modeling decide"
+SeniorCitizen,Original,int64,Yes,EDA shows signal: Churn-rate spread 18.08 pts across categories (23.61% for 0 vs 41.68% for 1),Low,None
+Partner,Original,str,Yes,EDA shows signal: Churn-rate spread 13.29 pts across categories (19.66% for Yes vs 32.96% for No),Low,None
+Dependents,Original,str,Yes,EDA shows signal: Churn-rate spread 15.83 pts across categories (15.45% for Yes vs 31.28% for No),Low,None
+tenure,Original,int64,Yes,EDA shows signal: Pearson r with churn = -0.3522,Low,Overlaps engineered TenureGroup (binned copy); corr 0.826 with TotalCharges
+TenureGroup,Engineered,category,Yes,EDA: churn 52.94% (0-6m) vs 14.04% (25+m) - early-life risk is the strongest single pattern; binned form aids interpretability,Low,Binned copy of tenure (exact duplication of information at group level)
+PhoneService,Original,str,Yes,EDA shows signal: Churn-rate spread 1.78 pts across categories (24.93% for No vs 26.71% for Yes),Low,Low variance (most customers Yes); prerequisite for MultipleLines
+MultipleLines,Original,str,Yes,EDA shows signal: Churn-rate spread 3.68 pts across categories (24.93% for No phone service vs 28.61% for Yes),Low,'No phone service' category is structurally determined by PhoneService
+InternetService,Original,str,Yes,EDA shows signal: Churn-rate spread 34.49 pts across categories (7.40% for No vs 41.89% for Fiber optic),Low,'No' drives 'No internet service' in 6 add-on columns
+OnlineSecurity,Original,str,Yes,EDA shows signal: Churn-rate spread 34.36 pts across categories (7.40% for No internet service vs 41.77% for No),Low,'No internet service' determined by InternetService; summarized by ServiceCount
+OnlineBackup,Original,str,Yes,EDA shows signal: Churn-rate spread 32.52 pts across categories (7.40% for No internet service vs 39.93% for No),Low,'No internet service' determined by InternetService; summarized by ServiceCount
+DeviceProtection,Original,str,Yes,EDA shows signal: Churn-rate spread 31.72 pts across categories (7.40% for No internet service vs 39.13% for No),Low,'No internet service' determined by InternetService; summarized by ServiceCount
+TechSupport,Original,str,Yes,EDA shows signal: Churn-rate spread 34.23 pts across categories (7.40% for No internet service vs 41.64% for No),Low,'No internet service' determined by InternetService; summarized by ServiceCount
+StreamingTV,Original,str,Yes,EDA shows signal: Churn-rate spread 26.12 pts across categories (7.40% for No internet service vs 33.52% for No),Low,'No internet service' determined by InternetService; summarized by ServiceCount
+StreamingMovies,Original,str,Yes,EDA shows signal: Churn-rate spread 26.28 pts across categories (7.40% for No internet service vs 33.68% for No),Low,'No internet service' determined by InternetService; summarized by ServiceCount
+ServiceCount,Engineered,int64,Yes,EDA: add-on ownership associates with retention (security/support ~3x lower observed churn); count captures bundling breadth,Low,Additive summary of the 7 add-on columns; overlaps individual add-on flags
+HasSecuritySupport,Engineered,int64,Yes,EDA: OnlineSecurity No 41.77% vs Yes 14.61%; TechSupport No 41.64% vs Yes 15.17% - protective add-ons merit a targeted flag,Low,"Overlaps OnlineSecurity, TechSupport and ServiceCount"
+Contract,Original,str,Yes,EDA shows signal: Churn-rate spread 39.88 pts across categories (2.83% for Two year vs 42.71% for Month-to-month),Low,None
+PaperlessBilling,Original,str,Yes,EDA shows signal: Churn-rate spread 17.24 pts across categories (16.33% for No vs 33.57% for Yes),Low,None
+PaymentMethod,Original,str,Yes,EDA shows signal: Churn-rate spread 30.04 pts across categories (15.24% for Credit card (automatic) vs 45.29% for Electronic check),Low,None
+MonthlyCharges,Original,float64,Yes,EDA shows signal: Pearson r with churn = 0.1934,Low,Overlaps engineered MonthlyChargeBand (binned copy) and AvgMonthlyCharge
+MonthlyChargeBand,Engineered,category,Yes,EDA: churn rises from 10.89% (<=35) to 36.33% (75-95) by charge level; quartile band computed from this dataset,Low,Binned copy of MonthlyCharges (quartiles)
+TotalCharges,Original,float64,Yes,EDA shows signal: Pearson r with churn = -0.1983,Low,corr 0.826 with tenure (multicollinearity concern for linear models); keep - assess at training
+AvgMonthlyCharge,Engineered,float64,Yes,Charge-to-tenure relationship: separates current price from lifetime average spend; tenure=0 uses MonthlyCharges,Low,Derived from TotalCharges/tenure; overlaps MonthlyCharges and TotalCharges
+Churn,Original,int64,No (target),Prediction target,Target variable,Target - never a predictor

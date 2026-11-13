@@ -1,0 +1,2 @@
+# CSV checksums include the original line endings.
+*.csv -text

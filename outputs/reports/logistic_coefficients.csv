@@ -1,0 +1,40 @@
+Feature,Coefficient,OddsRatio,Direction
+cat__Contract_Two year,-1.608995,0.200089,negative
+cat__InternetService_Fiber optic,1.299366,3.666971,positive
+cat__TenureGroup_≤6 months,0.886605,2.426876,positive
+cat__Contract_One year,-0.724558,0.484538,negative
+num__MonthlyCharges,-0.501878,0.605392,negative
+num__tenure,-0.442369,0.642512,negative
+num__ServiceCount,0.402041,1.494872,positive
+cat__PaymentMethod_Electronic check,0.391443,1.479114,positive
+cat__PaperlessBilling_Yes,0.347751,1.415879,positive
+cat__OnlineBackup_Yes,-0.26577,0.766615,negative
+cat__StreamingMovies_Yes,0.264186,1.302371,positive
+cat__OnlineSecurity_Yes,-0.249313,0.779336,negative
+cat__PhoneService_Yes,-0.242044,0.785022,negative
+cat__StreamingTV_Yes,0.241698,1.27341,positive
+cat__Dependents_Yes,-0.209438,0.81104,negative
+cat__MultipleLines_Yes,0.195003,1.215315,positive
+cat__TenureGroup_7–12 months,0.193594,1.213604,positive
+cat__TechSupport_No internet service,-0.190044,0.826923,negative
+cat__DeviceProtection_No internet service,-0.190044,0.826923,negative
+cat__StreamingTV_No internet service,-0.190044,0.826923,negative
+cat__StreamingMovies_No internet service,-0.190044,0.826923,negative
+cat__InternetService_No,-0.190044,0.826923,negative
+cat__OnlineSecurity_No internet service,-0.190044,0.826923,negative
+cat__OnlineBackup_No internet service,-0.190044,0.826923,negative
+cat__TechSupport_Yes,-0.182498,0.833186,negative
+num__HasSecuritySupport,-0.172755,0.841344,negative
+cat__SeniorCitizen_1,0.160716,1.174351,positive
+cat__MultipleLines_No phone service,-0.137743,0.871322,negative
+cat__MonthlyChargeBand_Low,0.124887,1.13302,positive
+cat__DeviceProtection_Yes,-0.11987,0.887035,negative
+cat__TenureGroup_25+ months,-0.091222,0.912815,negative
+num__AvgMonthlyCharge,0.067448,1.069775,positive
+cat__MonthlyChargeBand_Medium-High,-0.040346,0.960457,negative
+cat__MonthlyChargeBand_Medium-Low,0.038838,1.039603,positive
+cat__gender_Male,0.038644,1.0394,positive
+cat__Partner_Yes,0.03763,1.038347,positive
+num__TotalCharges,0.016614,1.016753,positive
+cat__PaymentMethod_Mailed check,0.011578,1.011645,positive
+cat__PaymentMethod_Credit card (automatic),0.011347,1.011412,positive

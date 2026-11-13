@@ -1,0 +1,51 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "2181aa7c318b96ec63ed",
+  "position": {
+    "x": 24,
+    "y": 17,
+    "width": 1232,
+    "height": 72,
+    "z": 1000,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Customer risk ranking",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontSize": "29px",
+                      "color": "#122B2B"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Historical scores include training rows. Scores are uncalibrated and the table is a retrospective view.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "15px",
+                      "color": "#49615D"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

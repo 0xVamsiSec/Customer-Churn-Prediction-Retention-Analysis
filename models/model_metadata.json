@@ -1,0 +1,53 @@
+{
+  "model_type": "sklearn Pipeline: ColumnTransformer (numeric: median impute + StandardScaler; categorical: most-frequent impute + OneHotEncoder(handle_unknown='ignore', drop='first')) -> LogisticRegression",
+  "trained_on": "data/processed/model_ready_data.csv (7,043 x 26)",
+  "classifier": {
+    "type": "LogisticRegression",
+    "C": 1.0,
+    "solver": "lbfgs",
+    "class_weight": "balanced",
+    "max_iter": 1000
+  },
+  "feature_set_choice": "B (originals + engineered)",
+  "n_candidate_features": 24,
+  "n_transformed_features": 39,
+  "split": {
+    "test_size": 0.2,
+    "random_state": 42,
+    "stratified_on_target": true,
+    "train_rows": 5634,
+    "train_churn_rate_pct": 26.5353,
+    "test_rows": 1409,
+    "test_churn_rate_pct": 26.5436
+  },
+  "cross_validation": {
+    "method": "StratifiedKFold",
+    "n_splits": 5,
+    "shuffle": true,
+    "random_state": 42,
+    "note": "class weight and feature set selected on CV (training data) only"
+  },
+  "test_metrics": {
+    "accuracy": 0.7445,
+    "precision": 0.512,
+    "recall": 0.7995,
+    "f1": 0.6242,
+    "roc_auc": 0.8452
+  },
+  "confusion_matrix_threshold_050": {
+    "tn": 750,
+    "fp": 285,
+    "fn": 75,
+    "tp": 299
+  },
+  "operational_flag_threshold": 0.4,
+  "sklearn_version": "1.9.0",
+  "data_integrity": {
+    "raw_sha256": "16320C9C1EC72448DB59AA0A26A0B95401046BEF5D02FD3AEB906448E3055E91",
+    "cleaned_sha256": "38E6F2DD278033A4617F880E8F11304C5FC6DCE2C05ECEF3F2A8BF48EEAA8996",
+    "model_ready_sha256": "DF02696964C95DE935070C92B147D591B100EA87746870A9EAE7F6D8CEFA4F73"
+  },
+  "reproducibility_verified": true,
+  "model_file_created_utc": "2026-08-31T17:12:59.132178+00:00",
+  "metadata_frozen_utc": "2026-08-31T17:13:27.107096+00:00"
+}

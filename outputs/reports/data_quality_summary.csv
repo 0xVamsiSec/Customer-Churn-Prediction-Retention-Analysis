@@ -1,0 +1,14 @@
+check,result
+rows,7043
+columns,21
+missing_values_total,0
+duplicate_rows,0
+duplicate_customer_ids,0
+text_numeric_columns,['TotalCharges']
+totalcharges_non_convertible,11
+totalcharges_problems_all_tenure_zero,True
+values_with_lead_trail_whitespace,11
+category_normalization_collisions,False
+churned_customers,1869
+retained_customers,5174
+churn_rate_pct,26.537

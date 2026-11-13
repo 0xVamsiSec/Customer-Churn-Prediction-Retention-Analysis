@@ -1,0 +1,51 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "a06e61863f37cf19e2b5",
+  "position": {
+    "x": 24,
+    "y": 17,
+    "width": 1232,
+    "height": 72,
+    "z": 1000,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Customer churn overview",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI Semibold",
+                      "fontSize": "29px",
+                      "color": "#122B2B"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Historical telecom snapshot • Filter by contract, tenure group, internet service or risk band.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "15px",
+                      "color": "#49615D"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
