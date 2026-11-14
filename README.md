@@ -10,7 +10,7 @@ Every metric in this README was produced by actually running the code in this re
 
 A subscription telecom company loses roughly one in four customers. Acquiring a new
 customer costs far more than retaining one, so the retention team needs to know,
-**before** a customer leaves, who is at risk and why — and needs a prioritized contact
+**before** a customer leaves, who is at risk and why - and needs a prioritized contact
 list rather than a blanket campaign.
 
 ## Objective
@@ -22,10 +22,10 @@ list rather than a blanket campaign.
 
 ## Tech Stack
 
-- **Python 3.14** — pandas 3.0.5, NumPy 2.5.2, scikit-learn 1.9.0, joblib 1.6.0
-- **Visualization** — Matplotlib 3.11.1, Seaborn 0.13.2
-- **BI** — Microsoft Power BI (dataset, DAX measures, dashboard documentation)
-- **Dev** — Jupyter Notebook, PowerShell pipeline script, pytest
+- **Python 3.14** - pandas 3.0.5, NumPy 2.5.2, scikit-learn 1.9.0, joblib 1.6.0
+- **Visualization** - Matplotlib 3.11.1, Seaborn 0.13.2
+- **BI** - Microsoft Power BI (dataset, DAX measures, dashboard documentation)
+- **Dev** - Jupyter Notebook, PowerShell pipeline script, pytest
 
 ## Workflow
 
@@ -59,18 +59,18 @@ Strongest verified risk patterns (observed, not causal):
 
 - **Month-to-month contracts churn at 42.71%** vs 2.83% for two-year contracts.
 - **Customers with ≤6 months tenure churn at 52.94%** vs 14.04% at 25+ months.
-- Highest-risk segment: **0–6 months + Fiber optic → 74.19% churn (460/620)**.
+- Highest-risk segment: **0-6 months + Fiber optic → 74.19% churn (460/620)**.
 - Electronic-check payment: 45.29% churn vs ~16% for automatic payments.
 - Largest model coefficients: two-year contract (OR 0.20), fiber optic (OR 3.67),
   ≤6-month tenure (OR 2.43).
 
 ## Important Limitations
 
-- **Observational dataset** — all findings are associations; no causal conclusions.
-- **Historical snapshot** — no temporal data, so churn dynamics over time can't be studied.
-- **Random (stratified) split**, not temporal validation — no drift assessment possible.
-- **Probability calibration not performed** — treat scores as risk rankings.
-- **Threshold 0.40 is operational** — the right business threshold depends on the cost of
+- **Observational dataset** - all findings are associations; no causal conclusions.
+- **Historical snapshot** - no temporal data, so churn dynamics over time can't be studied.
+- **Random (stratified) split**, not temporal validation - no drift assessment possible.
+- **Probability calibration not performed** - treat scores as risk rankings.
+- **Threshold 0.40 is operational** - the right business threshold depends on the cost of
   outreach vs the value of a saved customer (out-of-fold analysis suggests 0.60 maximizes F1).
 - Scores for training customers are in-sample; use them for triage, not calibrated probabilities.
 
@@ -182,4 +182,4 @@ The input is IBM’s public [Telco Customer Churn sample](https://github.com/IBM
 | `data/processed/cleaned_customer_churn.csv` | `38E6F2DD278033A4617F880E8F11304C5FC6DCE2C05ECEF3F2A8BF48EEAA8996` |
 | `data/processed/model_ready_data.csv` | `DF02696964C95DE935070C92B147D591B100EA87746870A9EAE7F6D8CEFA4F73` |
 
-The raw file was never modified — verified by SHA-256 before and after every phase.
+The raw file was never modified - verified by SHA-256 before and after every phase.
